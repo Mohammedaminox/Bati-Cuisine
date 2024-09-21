@@ -8,14 +8,16 @@ public class Projet {
     private double margeBeneficiaire;
     private double coutTotal;
     private EtatProjet etatProjet;
+    private Client client;
 
     //constructeur
-    public Projet(int idProjet, String nomProjet, double margeBeneficiaire, double coutTotal, EtatProjet etatProjet) {
+    public Projet(int idProjet, String nomProjet, double margeBeneficiaire, double coutTotal, EtatProjet etatProjet, Client client) {
         this.idProjet = idProjet;
         this.nomProjet = nomProjet;
         this.margeBeneficiaire = margeBeneficiaire;
         this.coutTotal = coutTotal;
         this.etatProjet = etatProjet;
+        this.client = client;
     }
 
     //getters
@@ -37,5 +39,8 @@ public class Projet {
 
     public EtatProjet getEtatProjet() {
         return etatProjet;
+    }
+    public Client getClient() {
+        return client;
     }
 }

@@ -38,7 +38,4 @@ public class Materiau extends Composant {
         return coefficientQualite;
     }
 
-
-
-
 }
