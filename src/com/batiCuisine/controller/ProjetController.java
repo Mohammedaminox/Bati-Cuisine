@@ -46,7 +46,8 @@ public class ProjetController {
             System.out.println("--- Création d'un Nouveau Projet ---");
             System.out.print("Entrez le nom du projet : ");
             String projectName = scanner.nextLine();
-            // You might need to add surface or other attributes to the project
+            System.out.println("Entrez la surface de la cuisine (en m²) :");
+            String surfaceCuisine = scanner.nextLine();
 //            Projet projet = new Projet(); // Initialize with required attributes
 
 //            // Add materials and labor

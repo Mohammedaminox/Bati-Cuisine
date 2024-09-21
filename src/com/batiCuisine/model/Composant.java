@@ -5,12 +5,12 @@ public abstract class Composant {
     //fields
     protected int id;
     protected String nom;
-    protected String typeComposant;
+    protected TypeComposant typeComposant;
     protected double tauxTVA;
 
 
     //construsteur
-    public Composant(int id, String nom, String typeComposant, double tauxTVA) {
+    public Composant(int id, String nom, TypeComposant typeComposant, double tauxTVA) {
 
         this.id = id;
         this.nom = nom;
@@ -28,7 +28,7 @@ public abstract class Composant {
         return nom;
     }
 
-    public String getTypeComposant() {
+    public TypeComposant getTypeComposant() {
         return typeComposant;
     }
 
