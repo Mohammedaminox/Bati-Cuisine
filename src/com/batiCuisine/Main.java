@@ -1,10 +1,13 @@
 package com.batiCuisine;
 
 import com.batiCuisine.controller.ClientController;
+import com.batiCuisine.controller.MateriauController;
 import com.batiCuisine.controller.ProjetController;
 import com.batiCuisine.repository.ClientRepository;
+import com.batiCuisine.repository.MateriauRepository;
 import com.batiCuisine.repository.ProjetRepository;
 import com.batiCuisine.service.ClientService;
+import com.batiCuisine.service.MateriauService;
 import com.batiCuisine.service.ProjetService;
 
 
@@ -17,13 +20,18 @@ public class Main {
 
         ProjetRepository projetRepository = new ProjetRepository();
         ClientRepository clientRepository = new ClientRepository();
+        MateriauRepository materiauRepository = new MateriauRepository();
 
 
         ProjetService projetService = new ProjetService(projetRepository);
         ClientService clientService = new ClientService(clientRepository);
-        ClientController clientController = new ClientController(clientService);
+        MateriauService materiauService = new MateriauService(materiauRepository);
 
-        ProjetController projetController = new ProjetController(projetService, clientController);
+
+        ClientController clientController = new ClientController(clientService);
+        MateriauController materiauController = new MateriauController(materiauService);
+
+        ProjetController projetController = new ProjetController(projetService, clientController, materiauController);
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -35,7 +43,7 @@ public class Main {
             System.out.println("4. Quitter");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:

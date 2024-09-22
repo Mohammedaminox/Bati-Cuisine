@@ -12,7 +12,7 @@ public class ProjetRepository {
 
     // Insert a new project into the database
     public void insertProjet(Projet projet) throws SQLException {
-        String query = "INSERT INTO projets (nom_projet, marge_benficiaire, cout_total, etat_projet, client_id) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO projets (nom_projet, marge_benficiaire, cout_total, etat_projet, client_id, surface_cuisine) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -22,6 +22,7 @@ public class ProjetRepository {
             preparedStatement.setDouble(3, projet.getCoutTotal());
             preparedStatement.setString(4, projet.getEtatProjet().name());  // Convert EtatProjet to string
             preparedStatement.setInt(5, projet.getClient().getId());  // Assuming Client has a getId() method
+            preparedStatement.setDouble(6, projet.getSurfaceCuisine());
 
             // Execute the query
             preparedStatement.executeUpdate();

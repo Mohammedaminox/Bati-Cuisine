@@ -39,7 +39,7 @@ public class ClientController {
         return null;
     }
 
-    public Client addClient() throws SQLException {
+    public Client createClient() throws SQLException {
         System.out.print("Entrez le nom du client : ");
         String nom = scanner.nextLine();
         System.out.print("Entrez l'adresse : ");

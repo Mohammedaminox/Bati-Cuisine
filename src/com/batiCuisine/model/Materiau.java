@@ -12,7 +12,7 @@ public class Materiau extends Composant {
 
     //constructeur
     public Materiau(int id, String nom, double coutUnitaire, double quantite, double tauxTVA, double coutTransport, double coefficientQualite) {
-        super(id, nom, "Materiel", tauxTVA);
+        super(id, nom, TypeComposant.Materiel, tauxTVA);
         this.coutUnitaire = coutUnitaire;
         this.quantite = quantite;
         this.coutTransport = coutTransport;

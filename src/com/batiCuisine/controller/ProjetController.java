@@ -1,21 +1,25 @@
 package com.batiCuisine.controller;
 
 import com.batiCuisine.model.Client;
+import com.batiCuisine.model.Materiau;
 import com.batiCuisine.model.Projet;
 import com.batiCuisine.service.ClientService;
 import com.batiCuisine.service.ProjetService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProjetController {
     private ProjetService projetService;
     private ClientController clientController;
+    private MateriauController materiauController;
     private Scanner scanner;
 
-    public ProjetController(ProjetService projetService, ClientController clientController) {
+    public ProjetController(ProjetService projetService, ClientController clientController, MateriauController materiauController) {
         this.projetService = projetService;
         this.clientController = clientController;
+        this.materiauController = materiauController;
         this.scanner = new Scanner(System.in);
     }
 
@@ -29,13 +33,14 @@ public class ProjetController {
         scanner.nextLine(); // Consume newline
 
         Client client = null;
+        Materiau materiau = null;
 
         switch (choice) {
             case 1:
                 client = clientController.findClientByName();
                 break;
             case 2:
-                client = clientController.addClient();
+                client = clientController.createClient();
                 break;
             default:
                 System.out.println("Choix invalide !");
@@ -46,19 +51,18 @@ public class ProjetController {
             System.out.println("--- Création d'un Nouveau Projet ---");
             System.out.print("Entrez le nom du projet : ");
             String projectName = scanner.nextLine();
-            System.out.println("Entrez la surface de la cuisine (en m²) :");
+            System.out.print("Entrez la surface de la cuisine (en m²) : ");
             String surfaceCuisine = scanner.nextLine();
-//            Projet projet = new Projet(); // Initialize with required attributes
 
-//            // Add materials and labor
-//            addMaterialsToProjet(projet);
-//            addLaborToProjet(projet);
-//
-//            // Calculate total cost and possibly ask for VAT and margin
-//            calculateAndDisplayCost(projet);
-//
-//            // Optionally save the project
-//            saveProjet(projet, client);
+            System.out.println("--- Ajout des matériaux ---");
+
+            List<Materiau> materiaux = materiauController.addMateriaux(0,0,"vvvs", 2);
+
+
+            // Create a new project instance
+//            Projet projet = new Projet();
+//            projetService.addProjet(projet); // Persist the project
+
         }
     }
 
