@@ -37,6 +37,16 @@ public class ProjetRepository {
         }
     }
 
+    public void setMargeBeneficiaire(int projetId, double margeBeneficiaire) throws SQLException {
+        String query = "UPDATE projets SET marge_beneficiaire = ? WHERE id = ?";
+        try (Connection connection = DatabaseConfig.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDouble(1, margeBeneficiaire);
+            preparedStatement.setInt(2, projetId);
+            preparedStatement.executeUpdate();
+        }
+    }
+
 
 
 }
