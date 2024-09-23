@@ -15,12 +15,14 @@ public class ProjetController {
     private ProjetService projetService;
     private ClientController clientController;
     private MateriauController materiauController;
+    private MainDoeuvreController mainDoeuvreController;
     private Scanner scanner;
 
-    public ProjetController(ProjetService projetService, ClientController clientController, MateriauController materiauController) {
+    public ProjetController(ProjetService projetService, ClientController clientController, MateriauController materiauController, MainDoeuvreController mainDoeuvreController) {
         this.projetService = projetService;
         this.clientController = clientController;
         this.materiauController = materiauController;
+        this.mainDoeuvreController = mainDoeuvreController;
         this.scanner = new Scanner(System.in);
     }
 
@@ -60,6 +62,9 @@ public class ProjetController {
             List<Materiau> materiaux = materiauController.createMateriaux(0, 0);
 
             System.out.println("--- Ajout de la main-d'oeuvre ---");
+
+            List<MainDoeuvre> mainDoeuvres = mainDoeuvreController.createMainDoeuvres(0,0);
+
 
 
 

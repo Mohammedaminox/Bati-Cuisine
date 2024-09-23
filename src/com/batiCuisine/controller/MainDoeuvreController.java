@@ -17,12 +17,14 @@ public class MainDoeuvreController {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<MainDoeuvre> createMainDoeuvres(int composantId, int id, String nom, double tauxTVA) throws SQLException {
+    public List<MainDoeuvre> createMainDoeuvres(int composantId, double tauxTVA) throws SQLException {
         List<MainDoeuvre> mainDoeuvres = new ArrayList<>();
         String addMore;
 
         do {
             // Ask user for details of Main d'oeuvre
+            System.out.print("Entrez le type de main-d'œuvre (e.g., Ouvrier de base, Spécialiste) : ");
+            String nomMainDoeuvre = scanner.nextLine();
             System.out.print("Entrez le taux horaire de cette main-d'œuvre : ");
             double tauxHoraire = scanner.nextDouble();
             System.out.print("Entrez le nombre d'heures travaillées : ");
@@ -32,13 +34,15 @@ public class MainDoeuvreController {
             scanner.nextLine();
 
             // Create new MainDoeuvre instance
-            MainDoeuvre mainDoeuvre = new MainDoeuvre(id, nom, tauxTVA, tauxHoraire, heuresTravail, productiviteOuvrier);
+            MainDoeuvre mainDoeuvre = new MainDoeuvre(composantId,nomMainDoeuvre, tauxTVA, tauxHoraire, heuresTravail, productiviteOuvrier);
 
             // Add mainDoeuvre to the service (and presumably to the database)
             mainDoeuvreService.addMainDoeuvre(mainDoeuvre, composantId); // Method to handle insertion with composant ID
 
             // Add the created mainDoeuvre to the list
             mainDoeuvres.add(mainDoeuvre);
+            System.out.println("MainDoeuvre ajouté avec succès !");
+
 
             // Ask if the user wants to add more main d'oeuvre
             System.out.print("Voulez-vous ajouter un autre type de main-d'œuvre ? (y/n) : ");
