@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class MainDoeuvreRepository {
 
-    public void insertMainDoeuvre(MainDoeuvre mainDoeuvre, int composantId) throws SQLException {
-        String mainDoeuvreQuery = "INSERT INTO main_doeuvre(nom, taux_horaire, heures_travail, productivite_ouvrier, type_composant, taux_tva) VALUES(?,?,?,?,?,?)";
+    public void insertMainDoeuvre(MainDoeuvre mainDoeuvre) throws SQLException {
+        String mainDoeuvreQuery = "INSERT INTO main_doeuvre(nom, taux_horaire, heures_travail, productivite_ouvrier, type_composant, taux_tva, projet_id) VALUES(?,?,?,?,?,?,?)";
         try (Connection connection = DatabaseConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(mainDoeuvreQuery)) {
 
@@ -20,6 +20,7 @@ public class MainDoeuvreRepository {
             preparedStatement.setDouble(4, mainDoeuvre.getProductiviteOuvrier());
             preparedStatement.setString(5, mainDoeuvre.getTypeComposant().name());
             preparedStatement.setDouble(6, mainDoeuvre.getTauxTVA());
+            preparedStatement.setInt(7, mainDoeuvre.getProjetId());
 
             preparedStatement.executeUpdate();
         }

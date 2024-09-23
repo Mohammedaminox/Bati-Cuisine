@@ -12,7 +12,7 @@ public class MainDoeuvreService {
         this.mainDoeuvreRepository = mainDoeuvreRepository;
     }
 
-    public void addMainDoeuvre(MainDoeuvre mainDoeuvre, int composantId) throws SQLException{
-        mainDoeuvreRepository.insertMainDoeuvre(mainDoeuvre, composantId);
+    public void addMainDoeuvre(MainDoeuvre mainDoeuvre) throws SQLException{
+        mainDoeuvreRepository.insertMainDoeuvre(mainDoeuvre);
     }
 }

@@ -12,12 +12,12 @@ public class Projet {
     private double surfaceCuisine;
 
     //constructeur
-    public Projet(int idProjet, String nomProjet, double margeBeneficiaire, double coutTotal, EtatProjet etatProjet, Client client, double surfaceCuisine) {
+    public Projet(String nomProjet, double surfaceCuisine, Client client) {
         this.idProjet = idProjet;
         this.nomProjet = nomProjet;
-        this.margeBeneficiaire = margeBeneficiaire;
-        this.coutTotal = coutTotal;
-        this.etatProjet = etatProjet;
+        this.margeBeneficiaire = 0.0;
+        this.coutTotal = 0.0;
+        this.etatProjet = EtatProjet.EnCours;
         this.client = client;
         this.surfaceCuisine = surfaceCuisine;
     }
@@ -25,6 +25,10 @@ public class Projet {
     //getters
     public int getIdProjet() {
         return idProjet;
+    }
+
+    public void setIdProjet(int idProjet) {
+        this.idProjet = idProjet;
     }
 
     public String getNomProjet() {

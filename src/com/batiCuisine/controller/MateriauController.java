@@ -17,7 +17,7 @@ public class MateriauController {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<Materiau> createMateriaux(int composantId, double tauxTVA) throws SQLException {
+    public List<Materiau> createMateriaux(int composantId, double tauxTVA , int projetId) throws SQLException {
         List<Materiau> materiaux = new ArrayList<>();
         String addMore;
 
@@ -36,8 +36,9 @@ public class MateriauController {
             scanner.nextLine(); // Consume newline
 
             // Create a new Materiau instance
-            Materiau materiau = new Materiau(composantId, nomMateriel, coutUnitaire, quantite, tauxTVA, coutTransport, coefficientQualite);
+            Materiau materiau = new Materiau(composantId, nomMateriel, coutUnitaire, quantite, tauxTVA, coutTransport, coefficientQualite, projetId);
 
+            materiau.setProjetId(projetId);
             // Add materiau to the service (and presumably to the database)
             materiauService.addMateriau(materiau);
 

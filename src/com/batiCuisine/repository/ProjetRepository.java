@@ -3,18 +3,16 @@ package com.batiCuisine.repository;
 import com.batiCuisine.config.DatabaseConfig;
 import com.batiCuisine.model.Projet;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ProjetRepository {
 
 
     // Insert a new project into the database
-    public void insertProjet(Projet projet) throws SQLException {
-        String query = "INSERT INTO projets (nom_projet, marge_benficiaire, cout_total, etat_projet, client_id, surface_cuisine) VALUES (?, ?, ?, ?, ?, ?)";
+    public int insertProjet(Projet projet) throws SQLException {
+        String query = "INSERT INTO projets (nom_projet, marge_beneficiaire, cout_total, etat_projet, client_id, surface_cuisine) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             // Set the parameters
             preparedStatement.setString(1, projet.getNomProjet());
@@ -26,6 +24,16 @@ public class ProjetRepository {
 
             // Execute the query
             preparedStatement.executeUpdate();
+
+            // Get the generated project ID from the database
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int generatedId = generatedKeys.getInt(1);  // Get the generated ID
+                projet.setIdProjet(generatedId);
+                return generatedId;
+            } else {
+                throw new SQLException("Failed to insert project, no ID obtained.");
+            }
         }
     }
 

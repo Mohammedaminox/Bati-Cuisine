@@ -11,11 +11,10 @@ import com.batiCuisine.model.TypeComposant;
 public class MateriauRepository {
 
     public void insertMateriau(Materiau materiau) throws SQLException {
-        String materiauQuery = "INSERT INTO materiau(nom, cout_unitaire, quantite, cout_transport, coefficient_qualite, type_composant, taux_tva) VALUES(?,?,?,?,?,?,?)";
+        String materiauQuery = "INSERT INTO materiau(nom, cout_unitaire, quantite, cout_transport, coefficient_qualite, type_composant, taux_tva, projet_id) VALUES(?,?,?,?,?,?,?,?)";
         try (Connection connection = DatabaseConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(materiauQuery)) {
 
-//            preparedStatement.setInt(1, composantId);  // Link to the inserted composant id
             preparedStatement.setString(1, materiau.getNom());
             preparedStatement.setDouble(2, materiau.getCoutUnitaire());
             preparedStatement.setDouble(3, materiau.getQuantite());  // Assuming quantity is an integer
@@ -23,6 +22,7 @@ public class MateriauRepository {
             preparedStatement.setDouble(5, materiau.getCoefficientQualite());
             preparedStatement.setString(6, materiau.getTypeComposant().name());
             preparedStatement.setDouble(7, materiau.getTauxTVA());
+            preparedStatement.setInt(8, materiau.getProjetId());
 
             preparedStatement.executeUpdate();
         }

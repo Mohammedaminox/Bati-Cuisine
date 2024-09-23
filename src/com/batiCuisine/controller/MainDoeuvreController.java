@@ -17,7 +17,7 @@ public class MainDoeuvreController {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<MainDoeuvre> createMainDoeuvres(int composantId, double tauxTVA) throws SQLException {
+    public List<MainDoeuvre> createMainDoeuvres(int composantId, double tauxTVA, int projetId) throws SQLException {
         List<MainDoeuvre> mainDoeuvres = new ArrayList<>();
         String addMore;
 
@@ -34,10 +34,11 @@ public class MainDoeuvreController {
             scanner.nextLine();
 
             // Create new MainDoeuvre instance
-            MainDoeuvre mainDoeuvre = new MainDoeuvre(composantId,nomMainDoeuvre, tauxTVA, tauxHoraire, heuresTravail, productiviteOuvrier);
+            MainDoeuvre mainDoeuvre = new MainDoeuvre(composantId, nomMainDoeuvre, tauxTVA, tauxHoraire, heuresTravail, productiviteOuvrier, projetId);
 
+            mainDoeuvre.setProjetId(projetId);
             // Add mainDoeuvre to the service (and presumably to the database)
-            mainDoeuvreService.addMainDoeuvre(mainDoeuvre, composantId); // Method to handle insertion with composant ID
+            mainDoeuvreService.addMainDoeuvre(mainDoeuvre); // Method to handle insertion with composant ID
 
             // Add the created mainDoeuvre to the list
             mainDoeuvres.add(mainDoeuvre);
