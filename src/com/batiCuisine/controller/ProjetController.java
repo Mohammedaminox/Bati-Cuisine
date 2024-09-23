@@ -1,6 +1,7 @@
 package com.batiCuisine.controller;
 
 import com.batiCuisine.model.Client;
+import com.batiCuisine.model.MainDoeuvre;
 import com.batiCuisine.model.Materiau;
 import com.batiCuisine.model.Projet;
 import com.batiCuisine.service.ClientService;
@@ -56,7 +57,11 @@ public class ProjetController {
 
             System.out.println("--- Ajout des matériaux ---");
 
-            List<Materiau> materiaux = materiauController.addMateriaux(0,0,"vvvs", 2);
+            List<Materiau> materiaux = materiauController.createMateriaux(0, 0);
+
+            System.out.println("--- Ajout de la main-d'oeuvre ---");
+
+
 
 
             // Create a new project instance

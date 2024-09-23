@@ -12,7 +12,7 @@ public class MateriauService {
         this.materiauRepository = materiauRepository;
     }
 
-    public void addMateriau(Materiau materiau, int composantId) throws SQLException {
-        materiauRepository.insertMateriau(materiau, composantId);
+    public void addMateriau(Materiau materiau) throws SQLException {
+        materiauRepository.insertMateriau(materiau);
     }
 }
