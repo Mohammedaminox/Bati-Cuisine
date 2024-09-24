@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ClientController {
-    private ClientService clientService;
-    private Scanner scanner;
+    private final ClientService clientService;
+    private final Scanner scanner;
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;

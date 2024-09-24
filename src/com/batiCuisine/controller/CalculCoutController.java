@@ -21,7 +21,7 @@ public class CalculCoutController {
     }
 
 
-    public void calculerCout(List<Materiau> materiaux, List<MainDoeuvre> mainDoeuvres, String projetNom, String clientNom, String adresse, double surface, int projetId) throws SQLException {
+    public double calculerCout(List<Materiau> materiaux, List<MainDoeuvre> mainDoeuvres, String projetNom, String clientNom, String adresse, double surface, int projetId) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
 
@@ -84,9 +84,12 @@ public class CalculCoutController {
             System.out.println("- " + mainDoeuvre.getNom() + " : " + coutMainDoeuvre + " € (taux horaire : " + mainDoeuvre.getTauxHoraire() +
                     " €/h, heures travaillées : " + mainDoeuvre.getHeuresTravail() + ", productivité : " + mainDoeuvre.getProductiviteOuvrier() + ")");
         }
+
+
         System.out.println("**Coût total de la main-d'œuvre avant TVA : " + coutTotalMainDoeuvreAvantTVA + " €**");
         double coutTotalMainDoeuvreAvecTVA = coutTotalMainDoeuvreAvantTVA + (coutTotalMainDoeuvreAvantTVA * tauxTva / 100);
         System.out.println("**Coût total de la main-d'œuvre avec TVA (" + tauxTva + "%) : " + coutTotalMainDoeuvreAvecTVA + " €**");
+
 
         // Total before margin
         double coutTotalAvantMarge = coutTotalMateriauxAvecTVA + coutTotalMainDoeuvreAvecTVA;
@@ -99,7 +102,10 @@ public class CalculCoutController {
         // Final total cost
         double coutTotalFinal = coutTotalAvantMarge + montantMargeBeneficiaire;
         System.out.println("**Coût total final du projet : " + coutTotalFinal + " €**");
+        projetRepository.setCoutTotal(projetId, coutTotalFinal);
 
+        return coutTotalFinal;
 
     }
+
 }

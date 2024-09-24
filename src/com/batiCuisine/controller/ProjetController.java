@@ -16,17 +16,20 @@ public class ProjetController {
     private final MateriauController materiauController;
     private final MainDoeuvreController mainDoeuvreController;
     private final CalculCoutController calculCoutController;
+    private final DevisController devisController;
     private final Scanner scanner;
 
 
     public ProjetController(ProjetService projetService, ClientController clientController,
                             MateriauController materiauController, MainDoeuvreController mainDoeuvreController,
-                            CalculCoutController calculCoutController) {
+                            CalculCoutController calculCoutController, DevisController devisController) {
         this.projetService = projetService;
         this.clientController = clientController;
         this.materiauController = materiauController;
         this.mainDoeuvreController = mainDoeuvreController;
         this.calculCoutController = calculCoutController;
+        this.devisController = devisController;
+
         this.scanner = new Scanner(System.in);
     }
 
@@ -57,13 +60,13 @@ public class ProjetController {
         if (client != null) {
             System.out.println("--- Création d'un Nouveau Projet ---");
             System.out.print("Entrez le nom du projet : ");
-            String projectName = scanner.nextLine();
+            String projectNom = scanner.nextLine();
             System.out.print("Entrez la surface de la cuisine (en m²) : ");
             double surfaceCuisine = scanner.nextDouble();
             scanner.nextLine();
 
             // Create the project instance
-            Projet projet = new Projet(projectName, surfaceCuisine, client);
+            Projet projet = new Projet(projectNom, surfaceCuisine, client);
             int projetId = projetService.addProjet(projet);  // This returns the generated ID
 
             System.out.println("--- Ajout des matériaux ---");
@@ -72,8 +75,12 @@ public class ProjetController {
             System.out.println("--- Ajout de la main-d'oeuvre ---");
             List<MainDoeuvre> mainDoeuvres = mainDoeuvreController.createMainDoeuvres(0, 0, projetId);
 
-            calculCoutController.calculerCout(materiaux, mainDoeuvres, projectName, client.getNom(),
+            calculCoutController.calculerCout(materiaux, mainDoeuvres, projectNom, client.getNom(),
                     client.getAdresse(), projet.getSurfaceCuisine(), projetId);
+
+            devisController.createDevis(projetId);
+
+
         }
     }
 }

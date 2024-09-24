@@ -2,10 +2,7 @@ package com.batiCuisine;
 
 import com.batiCuisine.controller.*;
 import com.batiCuisine.repository.*;
-import com.batiCuisine.service.ClientService;
-import com.batiCuisine.service.MainDoeuvreService;
-import com.batiCuisine.service.MateriauService;
-import com.batiCuisine.service.ProjetService;
+import com.batiCuisine.service.*;
 
 
 import java.util.Scanner;
@@ -20,20 +17,23 @@ public class Main {
         MateriauRepository materiauRepository = new MateriauRepository();
         MainDoeuvreRepository mainDoeuvreRepository = new MainDoeuvreRepository();
         ComposantRepository composantRepository = new ComposantRepository();
+        DevisRepository devisRepository = new DevisRepository();
 
 
         ProjetService projetService = new ProjetService(projetRepository);
         ClientService clientService = new ClientService(clientRepository);
         MateriauService materiauService = new MateriauService(materiauRepository);
         MainDoeuvreService mainDoeuvreService = new MainDoeuvreService(mainDoeuvreRepository);
+        DevisService devisService = new DevisService(devisRepository);
 
 
         ClientController clientController = new ClientController(clientService);
         MateriauController materiauController = new MateriauController(materiauService);
         MainDoeuvreController mainDoeuvreController = new MainDoeuvreController(mainDoeuvreService);
         CalculCoutController calculCoutController = new CalculCoutController(composantRepository, projetRepository);
+        DevisController devisController = new DevisController(devisService, projetService);
 
-        ProjetController projetController = new ProjetController(projetService, clientController, materiauController, mainDoeuvreController, calculCoutController);
+        ProjetController projetController = new ProjetController(projetService, clientController, materiauController, mainDoeuvreController, calculCoutController, devisController);
         Scanner scanner = new Scanner(System.in);
         int choice;
 

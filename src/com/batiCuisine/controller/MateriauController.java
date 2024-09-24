@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MateriauController {
-    private MateriauService materiauService;
-    private Scanner scanner;
+    private final MateriauService materiauService;
+    private final Scanner scanner;
 
     public MateriauController(MateriauService materiauService) {
         this.materiauService = materiauService;
         this.scanner = new Scanner(System.in);
     }
 
-    public List<Materiau> createMateriaux(int composantId, double tauxTVA , int projetId) throws SQLException {
+    public List<Materiau> createMateriaux(int composantId, double tauxTVA, int projetId) throws SQLException {
         List<Materiau> materiaux = new ArrayList<>();
         String addMore;
 
@@ -25,12 +25,16 @@ public class MateriauController {
             // Get user inputs for the specific material details
             System.out.print("Entrez le nom du matériau : ");
             String nomMateriel = scanner.nextLine();
+
             System.out.print("Entrez le coût unitaire du matériau : ");
             double coutUnitaire = scanner.nextDouble();
+
             System.out.print("Entrez la quantité : ");
             double quantite = scanner.nextDouble();
+
             System.out.print("Entrez le coût de transport : ");
             double coutTransport = scanner.nextDouble();
+
             System.out.print("Entrez le coefficient de qualité : ");
             double coefficientQualite = scanner.nextDouble();
             scanner.nextLine(); // Consume newline
@@ -53,7 +57,4 @@ public class MateriauController {
 
         return materiaux;
     }
-
-
-
 }

@@ -39,6 +39,18 @@ public class Projet {
         return margeBeneficiaire;
     }
 
+    public void setMargeBeneficiaire(double margeBeneficiaire) {
+        this.margeBeneficiaire = margeBeneficiaire;
+    }
+
+    public void setCoutTotal(double coutTotal) {
+        this.coutTotal = coutTotal;
+    }
+
+    public void setEtatProjet(EtatProjet etatProjet) {
+        this.etatProjet = etatProjet;
+    }
+
     public double getCoutTotal() {
         return coutTotal;
     }
