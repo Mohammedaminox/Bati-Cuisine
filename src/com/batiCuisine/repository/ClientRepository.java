@@ -10,16 +10,24 @@ import java.sql.SQLException;
 
 public class ClientRepository {
 
-    public void insertClient(Client client) throws SQLException {
-        String query = "INSERT INTO clients (nom, adresse, telephone, est_professionnel) VALUES (?, ?, ?, ?)";
+    public int insertClient(Client client) throws SQLException {
+        String query = "INSERT INTO clients (nom, adresse, telephone, est_professionnel) VALUES (?, ?, ?, ?) RETURNING id";
         try (Connection connection = DatabaseConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, client.getNom());
             preparedStatement.setString(2, client.getAdresse());
             preparedStatement.setString(3, client.getTelephone());
             preparedStatement.setBoolean(4, client.isEstProfessionnel());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int clientId = resultSet.getInt(1);  // Get the generated client_id
+                client.setId(clientId);  // Set the client ID in the Client object
+                return clientId;
+            } else {
+                throw new SQLException("Failed to insert client, no ID obtained.");
+            }
 
-            preparedStatement.executeUpdate();
+
         }
     }
 

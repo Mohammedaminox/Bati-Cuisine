@@ -5,7 +5,11 @@ import com.batiCuisine.model.Materiau;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.batiCuisine.model.TypeComposant;
 
 public class MateriauRepository {
@@ -27,5 +31,7 @@ public class MateriauRepository {
             preparedStatement.executeUpdate();
         }
     }
+
+
 }
 

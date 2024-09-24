@@ -5,6 +5,8 @@ import com.batiCuisine.repository.MainDoeuvreRepository;
 import com.batiCuisine.repository.MateriauRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MateriauService {
     private MateriauRepository materiauRepository;
@@ -15,4 +17,7 @@ public class MateriauService {
     public void addMateriau(Materiau materiau) throws SQLException {
         materiauRepository.insertMateriau(materiau);
     }
+
+
+
 }

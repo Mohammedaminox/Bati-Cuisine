@@ -49,6 +49,7 @@ public class Projet {
     public Client getClient() {
         return client;
     }
+
     public double getSurfaceCuisine() {
         return surfaceCuisine;
     }

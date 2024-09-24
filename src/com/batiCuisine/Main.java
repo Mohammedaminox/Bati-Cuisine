@@ -1,13 +1,7 @@
 package com.batiCuisine;
 
-import com.batiCuisine.controller.ClientController;
-import com.batiCuisine.controller.MainDoeuvreController;
-import com.batiCuisine.controller.MateriauController;
-import com.batiCuisine.controller.ProjetController;
-import com.batiCuisine.repository.ClientRepository;
-import com.batiCuisine.repository.MainDoeuvreRepository;
-import com.batiCuisine.repository.MateriauRepository;
-import com.batiCuisine.repository.ProjetRepository;
+import com.batiCuisine.controller.*;
+import com.batiCuisine.repository.*;
 import com.batiCuisine.service.ClientService;
 import com.batiCuisine.service.MainDoeuvreService;
 import com.batiCuisine.service.MateriauService;
@@ -25,6 +19,7 @@ public class Main {
         ClientRepository clientRepository = new ClientRepository();
         MateriauRepository materiauRepository = new MateriauRepository();
         MainDoeuvreRepository mainDoeuvreRepository = new MainDoeuvreRepository();
+        ComposantRepository composantRepository = new ComposantRepository();
 
 
         ProjetService projetService = new ProjetService(projetRepository);
@@ -36,8 +31,9 @@ public class Main {
         ClientController clientController = new ClientController(clientService);
         MateriauController materiauController = new MateriauController(materiauService);
         MainDoeuvreController mainDoeuvreController = new MainDoeuvreController(mainDoeuvreService);
+        CalculCoutController calculCoutController = new CalculCoutController(composantRepository, projetRepository);
 
-        ProjetController projetController = new ProjetController(projetService, clientController, materiauController, mainDoeuvreController);
+        ProjetController projetController = new ProjetController(projetService, clientController, materiauController, mainDoeuvreController, calculCoutController);
         Scanner scanner = new Scanner(System.in);
         int choice;
 
