@@ -4,14 +4,14 @@ import com.batiCuisine.controller.*;
 import com.batiCuisine.repository.*;
 import com.batiCuisine.service.*;
 
-
+import java.sql.SQLException; // Import the SQLException
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        // Set up repository, service, and controller
-
+    public static void main(String[] args) {
+        // Set up repositories, services, and controllers
         ProjetRepository projetRepository = new ProjetRepository();
         ClientRepository clientRepository = new ClientRepository();
         MateriauRepository materiauRepository = new MateriauRepository();
@@ -19,13 +19,11 @@ public class Main {
         ComposantRepository composantRepository = new ComposantRepository();
         DevisRepository devisRepository = new DevisRepository();
 
-
         ProjetService projetService = new ProjetService(projetRepository);
         ClientService clientService = new ClientService(clientRepository);
         MateriauService materiauService = new MateriauService(materiauRepository);
         MainDoeuvreService mainDoeuvreService = new MainDoeuvreService(mainDoeuvreRepository);
         DevisService devisService = new DevisService(devisRepository);
-
 
         ClientController clientController = new ClientController(clientService);
         MateriauController materiauController = new MateriauController(materiauService);
@@ -34,40 +32,44 @@ public class Main {
         DevisController devisController = new DevisController(devisService, projetService);
 
         ProjetController projetController = new ProjetController(projetService, clientController, materiauController, mainDoeuvreController, calculCoutController, devisController);
-        Scanner scanner = new Scanner(System.in);
-        int choice;
 
-        do {
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+
+        while (true) {
             System.out.println("=== Menu Principal ===");
             System.out.println("1. Créer un nouveau projet");
             System.out.println("2. Afficher les projets existants");
-            System.out.println("3. Calculer le coût d'un projet");
-            System.out.println("4. Quitter");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("3. Quitter");
+            System.out.print("Entrez votre choix: ");
 
-            switch (choice) {
-                case 1:
-                    projetController.createProjet();
-                    break;
+            // Input validation
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-                case 2:
+                switch (choice) {
+                    case 1:
+                        projetController.createProjet();
+                        break;
+                    case 2:
+                        projetController.displayAllProjets();
+                        break;
 
-                    break;
-                case 3:
-
-                    break;
-
-                case 4:
-                    System.out.println("Quitter...");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
+                    case 3:
+                        System.out.println("Quitter...");
+                        scanner.close();
+                        return; // Exit the main method
+                    default:
+                        System.out.println("Choix invalide. Veuillez réessayer.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur: Veuillez entrer un nombre entier.");
+                scanner.nextLine();
+            } catch (SQLException e) {
+                System.out.println("Erreur de base de données: " + e.getMessage());
             }
-        } while (choice != 4);
-
-        scanner.close();
+        }
     }
 }

@@ -5,6 +5,8 @@ import com.batiCuisine.model.EtatProjet;
 import com.batiCuisine.model.Projet;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjetRepository {
 
@@ -38,30 +40,30 @@ public class ProjetRepository {
         }
     }
 
-    // Method to find a project by its ID
-    public Projet findById(int projetId) throws SQLException {
-        String query = "SELECT * FROM projets WHERE id = ?";
+    public List<Projet> findAll() throws SQLException {
+        List<Projet> projets = new ArrayList<>();
+        String query = "SELECT * FROM projets";
         try (Connection connection = DatabaseConfig.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, projetId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            if (resultSet.next()) {
-                // Assuming you have a constructor in Projet that takes these parameters
+            while (resultSet.next()) {
                 Projet projet = new Projet(
                         resultSet.getString("nom_projet"),
                         resultSet.getDouble("surface_cuisine"),
-                        null // You may want to retrieve the Client object if applicable
+                        null // Replace this with actual Client retrieval if needed
                 );
                 projet.setIdProjet(resultSet.getInt("id"));
                 projet.setMargeBeneficiaire(resultSet.getDouble("marge_beneficiaire"));
                 projet.setCoutTotal(resultSet.getDouble("cout_total"));
                 projet.setEtatProjet(EtatProjet.valueOf(resultSet.getString("etat_projet")));
-                return projet;
+                projets.add(projet);
             }
         }
-        return null; // No project found
+        return projets;
     }
+
+
 
     public void setMargeBeneficiaire(int projetId, double margeBeneficiaire) throws SQLException {
         String query = "UPDATE projets SET marge_beneficiaire = ? WHERE id = ?";

@@ -4,6 +4,7 @@ import com.batiCuisine.model.MainDoeuvre;
 import com.batiCuisine.repository.MainDoeuvreRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class MainDoeuvreService {
     private MainDoeuvreRepository mainDoeuvreRepository;
@@ -15,4 +16,6 @@ public class MainDoeuvreService {
     public void addMainDoeuvre(MainDoeuvre mainDoeuvre) throws SQLException{
         mainDoeuvreRepository.insertMainDoeuvre(mainDoeuvre);
     }
+
+
 }

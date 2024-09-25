@@ -83,4 +83,22 @@ public class ProjetController {
 
         }
     }
+
+    public void displayAllProjets() throws SQLException {
+        List<Projet> projets = projetService.getAllProjets();
+        if (projets.isEmpty()) {
+            System.out.println("Aucun projet trouvé.");
+        } else {
+            System.out.println("--- Liste des Projets ---");
+            for (Projet projet : projets) {
+                System.out.println("Projet ID: " + projet.getIdProjet() +
+                        ", Nom: " + projet.getNomProjet() +
+                        ", Surface: " + projet.getSurfaceCuisine() + " m²" +
+                        ", État: " + projet.getEtatProjet().name());
+            }
+        }
+    }
+
+
 }
+
